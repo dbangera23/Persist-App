@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/about_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/about_logo"
+        android:layout_centerHorizontal="true"
+        android:text="@string/app_name"
+        android:textSize="24sp" />
+
+    <TableRow
+        android:id="@+id/versionRow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14sp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/VersionName"
+            android:layout_marginLeft="4sp"
+            android:layout_marginStart="4sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp" />
+    </TableRow>
+
+    <Button
+        android:id="@+id/about_Demo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/versionRow"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14sp"
+        android:text="@string/about_demo"
+        android:textSize="20sp" />
+
+    <Button
+        android:id="@+id/about_changelog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_Demo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14sp"
+        android:text="@string/changelog"
+        android:textSize="20sp" />
+</RelativeLayout>
