@@ -1,31 +1,35 @@
 package com.dmbangera.deanbangera.peristantmessage;
 
-
-import android.app.FragmentManager;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.pavelsikun.vintagechroma.ChromaDialog;
+import com.pavelsikun.vintagechroma.IndicatorMode;
+import com.pavelsikun.vintagechroma.OnColorSelectedListener;
+import com.pavelsikun.vintagechroma.colormode.ColorMode;
 
 import java.util.Locale;
-
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class messageFragment extends Fragment implements AdapterView.OnItemSelectedListener {
+public class MessageFragment extends Fragment {
     private static final String PREFS_NAME = "MyPrefsFile";
 
-    public messageFragment() {
+    public MessageFragment() {
         // Required empty public constructor
     }
 
@@ -34,56 +38,94 @@ public class messageFragment extends Fragment implements AdapterView.OnItemSelec
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_message, container, false);
-        SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
-        if(settings.getBoolean("changelog",false)){
-            SharedPreferences.Editor editor = settings.edit();
-            editor.putBoolean("changelog",false);
-            editor.apply();
-            FragmentManager fm = this.getActivity().getFragmentManager();
-            Changelog dialogFragment = new Changelog();
-            dialogFragment.show(fm, "");
+        final SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
+        final EditText ETextView = (EditText) view.findViewById(R.id.input);
+        final Button Color_button = (Button) view.findViewById(R.id.Txt_Color);
+        final Button bkd_color_button = (Button) view.findViewById(R.id.bkd_Color);
+        if (ETextView != null) {
+            ETextView.setText(settings.getString("message", ""));
+            if (Color_button != null) {
+                int c = Color.parseColor(settings.getString("Color", "Black"));
+                Color_button.setTextColor(c);
+                ETextView.setTextColor(c);
+                Color_button.setText(String.format("#%06X", (0xFFFFFF & c)));
+                Color_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View innerView) {
+                        new ChromaDialog.Builder()
+                                .initialColor(Color.parseColor(Color_button.getText().toString()))
+                                .colorMode(ColorMode.RGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
+                                .indicatorMode(IndicatorMode.HEX) //HEX or DECIMAL; Note that (HSV || HSL || CMYK) && IndicatorMode.HEX is a bad idea
+                                .onColorSelected(new OnColorSelectedListener() {
+                                    @Override
+                                    public void onColorSelected(@ColorInt int color) {
+                                        Color_button.setTextColor(color);
+                                        Color_button.setText(String.format("#%06X", (0xFFFFFF & color)));
+                                        ETextView.setTextColor(color);
+                                    }
+                                })
+                                .create()
+                                .show(getFragmentManager(), "ChromaDialog");
+                    }
+                });
+            }
+            if (bkd_color_button != null) {
+                String c = settings.getString("bkd_Color", getString(R.string.transparent));
+                if (c.equals(getString(R.string.transparent))) {
+                    bkd_color_button.setTextColor(Color.BLACK);
+                    ETextView.setBackgroundColor(Color.TRANSPARENT);
+                    bkd_color_button.setText(getString(R.string.transparent));
+                } else {
+                    int backColor = Color.parseColor(c);
+                    bkd_color_button.setTextColor(backColor);
+                    bkd_color_button.setText(String.format("#%08X", backColor));
+                    ETextView.setBackgroundColor(backColor);
+                }
+                bkd_color_button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View innerView) {
+                        String temp = bkd_color_button.getText().toString();
+                        if (bkd_color_button.getText().toString().equals(getString(R.string.transparent)))
+                            temp = "#00000000";
+                        new ChromaDialog.Builder()
+                                .initialColor(Color.parseColor(temp))
+                                .colorMode(ColorMode.ARGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
+                                .indicatorMode(IndicatorMode.HEX) //HEX or DECIMAL; Note that (HSV || HSL || CMYK) && IndicatorMode.HEX is a bad idea
+                                .onColorSelected(new OnColorSelectedListener() {
+                                    @Override
+                                    public void onColorSelected(@ColorInt int color) {
+                                        if (Color.alpha(color) == 0) {
+                                            bkd_color_button.setText(R.string.transparent);
+                                            bkd_color_button.setTextColor(Color.BLACK);
+                                        } else {
+                                            bkd_color_button.setText(String.format("#%08X", color));
+                                            bkd_color_button.setTextColor(color);
+                                        }
+                                        ETextView.setBackgroundColor(color);
+                                    }
+                                })
+                                .create()
+                                .show(getFragmentManager(), "ChromaDialog");
+                        Toast.makeText(getContext(), R.string.a_0, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
         }
-        if (view != null) {
-            EditText ETextView = (EditText) view.findViewById(R.id.input);
-            if (ETextView != null)
-                ETextView.setText(settings.getString("message", ""));
-            Spinner Color_spinner = (Spinner) view.findViewById(R.id.Txt_Color);
-            if (Color_spinner != null) {
-                Color_spinner.setOnItemSelectedListener(this);
-                String c = settings.getString("Color", "Black");
-                String[] rainbow = getResources().getStringArray(R.array.rainbow);
-                for (int walk = 0; walk < rainbow.length; walk++) {
-                    if (rainbow[walk].equals(c)) {
-                        Color_spinner.setSelection(walk);
-                    }
-                }
-            }
-            Spinner bkd_color_spinner = (Spinner) view.findViewById(R.id.bkd_Color);
-            if (bkd_color_spinner != null) {
-                bkd_color_spinner.setOnItemSelectedListener(this);
-                String c = settings.getString("bkd_Color", "Transparent");
-                String[] rainbow = getResources().getStringArray(R.array.rainbowBKD);
-                for (int walk = 0; walk < rainbow.length; walk++) {
-                    if (rainbow[walk].equals(c)) {
-                        bkd_color_spinner.setSelection(walk);
-                    }
-                }
-            }
-            // Spinner elements
-            SeekBar size_seeker = (SeekBar) view.findViewById(R.id.size_seeker);
-            if (size_seeker != null) {
-                int saved_size = settings.getInt("SizeSeek", 10);
-                final TextView sizeText = (TextView) view.findViewById(R.id.size);
-                final EditText inputText = (EditText) view.findViewById(R.id.input);
-                sizeText.setText(String.format(Locale.getDefault(), "%d", saved_size));
-                inputText.setTextSize(saved_size);
+        // Spinner elements
+        SeekBar size_seeker = (SeekBar) view.findViewById(R.id.size_seeker);
+        if (size_seeker != null) {
+            int saved_size = settings.getInt("SizeSeek", 10);
+            final TextView sizeText = (TextView) view.findViewById(R.id.size);
+            sizeText.setText(String.format(Locale.getDefault(), "%d", saved_size));
+            if (ETextView != null) {
+                ETextView.setTextSize(saved_size);
                 size_seeker.setMax(90);
                 size_seeker.setProgress(saved_size - 10);
                 size_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         sizeText.setText(String.format(Locale.getDefault(), "%d", progress + 10));
-                        inputText.setTextSize(progress + 10);
+                        ETextView.setTextSize(progress + 10);
                     }
 
                     @Override
@@ -96,20 +138,21 @@ public class messageFragment extends Fragment implements AdapterView.OnItemSelec
                     }
                 });
             }
-            SeekBar rotation_seeker = (SeekBar) view.findViewById(R.id.rotation_seek);
-            if (size_seeker != null) {
-                int saved_rot = settings.getInt("RotSeek", 0);
-                final TextView rotText = (TextView) view.findViewById(R.id.rotation);
-                final EditText inputText = (EditText) view.findViewById(R.id.input);
-                rotText.setText(String.format(Locale.getDefault(), "%d", saved_rot));
-                inputText.setRotation(saved_rot);
+        }
+        SeekBar rotation_seeker = (SeekBar) view.findViewById(R.id.rotation_seek);
+        if (size_seeker != null) {
+            int saved_rot = settings.getInt("RotSeek", 0);
+            final TextView rotText = (TextView) view.findViewById(R.id.rotation);
+            rotText.setText(String.format(Locale.getDefault(), "%d", saved_rot));
+            if (ETextView != null) {
+                ETextView.setRotation(saved_rot);
                 rotation_seeker.setMax(359);
                 rotation_seeker.setProgress(saved_rot);
                 rotation_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                         rotText.setText(String.format(Locale.getDefault(), "%d", progress));
-                        inputText.setRotation(progress);
+                        ETextView.setRotation(progress);
                     }
 
                     @Override
@@ -121,58 +164,83 @@ public class messageFragment extends Fragment implements AdapterView.OnItemSelec
                     }
                 });
             }
-            Button set_button = (Button) view.findViewById(R.id.message_set_button);
-            if(set_button!=null){
-                set_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-
+        }
+        Button set_button = (Button) view.findViewById(R.id.message_set_button);
+        if (set_button != null) {
+            set_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View innerView) {
+                    String message = "";
+                    if (ETextView != null)
+                        message = ETextView.getText().toString();
+                    if (message.isEmpty()) {
+                        message = settings.getString("message", "");
                     }
-                });
-            }
-            Button loc_button = (Button) view.findViewById(R.id.message_set_button);
-            if(loc_button!=null){
-                loc_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                    if (!message.isEmpty()) {
+                        SharedPreferences.Editor editor = settings.edit();
+                        editor.putString("message", message);
+                        SeekBar Size_seeker = (SeekBar) view.findViewById(R.id.size_seeker);
+                        if (Size_seeker != null) {
+                            editor.putInt("SizeSeek", Size_seeker.getProgress() + 10);
+                        }
+                        SeekBar rot_seeker = (SeekBar) view.findViewById(R.id.rotation_seek);
+                        if (rot_seeker != null) {
+                            editor.putInt("RotSeek", rot_seeker.getProgress());
+                        }
 
-                    }
-                });
-            }
-            Button del_button = (Button) view.findViewById(R.id.message_set_button);
-            if(del_button!=null){
-                del_button.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
+                        if (Color_button != null) {
+                            editor.putString("Color", Color_button.getText().toString());
+                        }
+                        if (bkd_color_button != null) {
+                            editor.putString("bkd_Color", bkd_color_button.getText().toString());
+                        }
+                        editor.apply();
+                        Intent i = new Intent(view.getContext(), MessageService.class);
+                        getActivity().startService(i);
+                        Snackbar snackbar = Snackbar
+                                .make(view, "Message Set", Snackbar.LENGTH_SHORT)
+                                .setAction("UNDO", new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        Intent intent = new Intent(view.getContext(), MessageService.class);
+                                        getActivity().stopService(intent);
+                                        Snackbar snackbar = Snackbar.make(view, R.string.DeleteMess, Snackbar.LENGTH_SHORT);
+                                        snackbar.show();
+                                    }
+                                });
 
+                        snackbar.show();
+                    } else {
+                        Snackbar snackbar = Snackbar.make(view, R.string.EmptyMess, Snackbar.LENGTH_SHORT);
+                        snackbar.show();
                     }
-                });
-            }
+                }
+            });
+        }
+        Button loc_button = (Button) view.findViewById(R.id.message_loc_button);
+        if (loc_button != null) {
+            loc_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View innerView) {
+                    Intent intent = new Intent(view.getContext(), LocationActivity.class);
+                    startActivity(intent);
+                }
+            });
+        }
+        Button del_button = (Button) view.findViewById(R.id.message_del_button);
+        if (del_button != null) {
+            del_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View innerView) {
+                    Intent intent = new Intent(view.getContext(), MessageService.class);
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putString("message", "");
+                    editor.apply();
+                    getActivity().stopService(intent);
+                }
+            });
         }
 
         return view;
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        // On selecting a spinner item
-        String item = parent.getItemAtPosition(position).toString();
-        view = getView();
-        if (view != null) {
-            EditText ETextView = (EditText) view.findViewById(R.id.input);
-            if (parent.getId() == R.id.bkd_Color) {
-                if (item.equals("Transparent")) {
-                    ETextView.setBackgroundColor(Color.TRANSPARENT);
-                } else {
-                    ETextView.setBackgroundColor(Color.parseColor(item));
-                }
-            } else {
-                ETextView.setTextColor(Color.parseColor(item));
-            }
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
     }
 }

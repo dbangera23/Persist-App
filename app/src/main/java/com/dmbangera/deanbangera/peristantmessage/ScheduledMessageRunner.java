@@ -13,7 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
 /**
- * Created by deanb on 5/31/2016.
+ * Created by Dean Bangera on 5/31/2016.
  * Handle setting up and running the scheduled messages
  */
 public class ScheduledMessageRunner extends BroadcastReceiver {
@@ -38,16 +38,16 @@ public class ScheduledMessageRunner extends BroadcastReceiver {
                     .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
                             R.mipmap.ic_launcher));
             notification.setPriority(Notification.PRIORITY_DEFAULT);
-            String sound = settings.getString("notification_sound","None");
-            if(!sound.equals("None")){
-                if(sound.equals("Default ringtone")){
+            String sound = settings.getString("notification_sound", "None");
+            if (!sound.equals("None")) {
+                if (sound.equals("Default ringtone")) {
                     notification.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION));
-                }else{
+                } else {
                     notification.setSound(Uri.parse(sound));
                 }
             }
-            if(settings.getBoolean("notification_vibrate",false)){
-                notification.setVibrate(new long[]{0,1000});
+            if (settings.getBoolean("notification_vibrate", false)) {
+                notification.setVibrate(new long[]{0, 1000});
             }
             NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             // Builds the notification and issues it.

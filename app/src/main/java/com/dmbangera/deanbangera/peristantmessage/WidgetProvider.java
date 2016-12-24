@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.widget.RemoteViews;
 
 /**
- * Created by deanb on 6/11/2016.
+ * Created by Dean Bangera on 6/11/2016.
  * subsequent calls of the widget
  */
 public class WidgetProvider extends AppWidgetProvider {

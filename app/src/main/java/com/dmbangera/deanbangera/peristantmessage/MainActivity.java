@@ -1,129 +1,66 @@
 package com.dmbangera.deanbangera.peristantmessage;
 
-import android.content.Context;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.SeekBar;
-import android.widget.Spinner;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefsFile";
+    private DrawerLayout mDrawerLayout;
+    private android.support.v4.app.FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (isTablet(this))
-            setContentView(R.layout.tablet_view);
-        else
-            setContentView(R.layout.activity_main);
-        //Set main Fragment initially
-        messageFragment mf = new messageFragment();
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.mainFrame, mf);
-        fragmentTransaction.commit();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (!isTablet(this)) {
-            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-            ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                    this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-            if (drawer != null) {
-                drawer.addDrawerListener(toggle);
-            }
-            toggle.syncState();
-        }
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        if (navigationView != null)
-            navigationView.setNavigationItemSelectedListener(this);
-        setTitle(getString(R.string.Text));
-    }
+        setContentView(R.layout.activity_main_);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
 
-    @SuppressWarnings("unused")
-    public void setButton(View view) {
-        EditText ETextView = (EditText) findViewById(R.id.input);
+        mFragmentManager = getSupportFragmentManager();
+        FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
+        mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+
+        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                mDrawerLayout.closeDrawers();
+                int itemFound = item.getItemId();
+                if (itemFound == R.id.settings) {
+                    Intent i = new Intent(getApplicationContext(), SettingsFragment.class);
+                    startActivity(i);
+                } else {
+                    displayView(itemFound);
+                }
+                return false;
+            }
+        });
+
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
+                R.string.app_name);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        String message = "";
-        if (ETextView != null)
-            message = ETextView.getText().toString();
-        if (message.isEmpty()) {
-            message = settings.getString("message", "");
-        }
-        if (!message.isEmpty()) {
+        if (settings.getBoolean("changelog", false)) {
             SharedPreferences.Editor editor = settings.edit();
-            editor.putString("message", message);
-            SeekBar Size_seeker = (SeekBar) findViewById(R.id.size_seeker);
-            if (Size_seeker != null) {
-                editor.putInt("SizeSeek", Size_seeker.getProgress() + 10);
-            }
-            SeekBar rot_seeker = (SeekBar) findViewById(R.id.rotation_seek);
-            if (rot_seeker != null) {
-                editor.putInt("RotSeek", rot_seeker.getProgress());
-            }
-            Spinner Color_spinner = (Spinner) findViewById(R.id.Txt_Color);
-            if (Color_spinner != null) {
-                editor.putString("Color", (String) Color_spinner.getSelectedItem());
-            }
-            Spinner bkd_color_spinner = (Spinner) findViewById(R.id.bkd_Color);
-            if (bkd_color_spinner != null) {
-                editor.putString("bkd_Color", (String) bkd_color_spinner.getSelectedItem());
-            }
+            editor.putBoolean("changelog", false);
             editor.apply();
-            Intent i = new Intent(view.getContext(), MessageService.class);
-            startService(i);
-            Snackbar snackbar = Snackbar
-                    .make(view, "Message Set", Snackbar.LENGTH_SHORT)
-                    .setAction("UNDO", new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            Intent intent = new Intent(view.getContext(), MessageService.class);
-                            stopService(intent);
-                            Snackbar snackbar = Snackbar.make(view, R.string.DeleteMess, Snackbar.LENGTH_SHORT);
-                            snackbar.show();
-                        }
-                    });
-
-            snackbar.show();
-        } else {
-            Snackbar snackbar = Snackbar.make(view, R.string.EmptyMess, Snackbar.LENGTH_SHORT);
-            snackbar.show();
+            FragmentManager fm = getFragmentManager();
+            Changelog dialogFragment = new Changelog();
+            dialogFragment.show(fm, "");
         }
-    }
-
-    @SuppressWarnings("unused")
-    public void locButton(View view) {
-        Intent intent = new Intent(view.getContext(), LocationActivity.class);
-        startActivity(intent);
-    }
-
-    @SuppressWarnings("unused")
-    public void delButton(View view) {
-        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        Intent intent = new Intent(view.getContext(), MessageService.class);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("message", "");
-        editor.apply();
-        stopService(intent);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
     }
 
     @Override
@@ -159,45 +96,23 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
     }
 
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
+    private void displayView(int itemId) {
+        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        switch (itemId) {
             case R.id.nav_message:
-                FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                setTitle(getString(R.string.Text));
-                messageFragment mf = new messageFragment();
-                fragmentTransaction.replace(R.id.mainFrame, mf);
-                fragmentTransaction.commit();
+                fragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
                 break;
             case R.id.nav_schedule:
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                setTitle(getString(R.string.schedule));
-                scheduleFragment sf = new scheduleFragment();
-                fragmentTransaction.replace(R.id.mainFrame, sf);
-                fragmentTransaction.commit();
-                break;
-            case R.id.nav_picture:
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                setTitle(getString(R.string.images));
-
-                break;
-            case R.id.settings:
-                // Display the fragment as the main content.
-                Intent i = new Intent(this, SettingsFragment.class);
-                startActivity(i);
+                fragmentTransaction.replace(R.id.containerView, new scheduleFragment()).commit();
                 break;
             default:
                 break;
         }
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if (drawer != null)
-            drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 
-    private static boolean isTablet(Context context) {
-        return (context.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
     }
 }

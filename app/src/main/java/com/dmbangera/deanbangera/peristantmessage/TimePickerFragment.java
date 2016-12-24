@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by deanb on 5/28/2016.
+ * Created by Dean Bangera on 5/28/2016.
  * Handle showing the time picker
  */
 public class TimePickerFragment extends DialogFragment
@@ -36,6 +36,6 @@ public class TimePickerFragment extends DialogFragment
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         // Do something with the time chosen by the user
         RelativeLayout relativeLayout = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
-        ((TextView) relativeLayout.findViewById(R.id.scheduled_time)).setText(String.format(Locale.US, "%02d:%02d", hourOfDay,minute));
+        ((TextView) relativeLayout.findViewById(R.id.scheduled_time)).setText(String.format(Locale.US, "%02d:%02d", hourOfDay, minute));
     }
 }

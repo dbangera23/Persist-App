@@ -24,7 +24,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="setButton"
             android:text="@string/set" />
 
         <Button
@@ -33,7 +32,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="locButton"
             android:text="@string/location" />
 
         <Button
@@ -42,34 +40,36 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:onClick="delButton"
             android:text="@string/delete" />
     </TableRow>
-
     <TableRow
         android:id="@+id/Color_prompt_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/table"
-        android:layout_marginTop="10sp">
+        android:layout_above="@+id/table"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
-        <Spinner
+        <Button
             android:id="@+id/Txt_Color"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/rainbow"
             android:gravity="center"
-            android:spinnerMode="dialog" />
+            android:text="#000000"
+            android:textColor="#000000"
+            tools:ignore="HardcodedText" />
 
-        <Spinner
+        <Button
             android:id="@+id/bkd_Color"
-            android:layout_width="wrap_content"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/rainbowBKD"
             android:gravity="center"
-            android:spinnerMode="dialog" />
+            android:textColor="#000000"
+            android:text="@string/transparent" />
     </TableRow>
 
     <TableRow
@@ -80,14 +80,14 @@
         android:layout_marginTop="10sp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
             android:text="@string/Text_color" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
@@ -157,8 +157,10 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@id/size_prompt"
-        android:layout_alignParentTop="true">
+        android:layout_above="@+id/size_prompt"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
 
         <EditText
             android:id="@+id/input"
@@ -168,4 +170,5 @@
             android:gravity="center"
             android:hint="@string/Text" />
     </FrameLayout>
+
 </RelativeLayout>

@@ -12,7 +12,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
 /**
- * Created by deanb on 6/6/2016.
+ * Created by Dean Bangera on 6/6/2016.
  * Fragment to deal with preferences/settings
  */
 public class SettingsFragment extends PreferenceActivity {

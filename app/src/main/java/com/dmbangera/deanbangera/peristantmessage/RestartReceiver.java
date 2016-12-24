@@ -25,9 +25,9 @@ public class RestartReceiver extends BroadcastReceiver {
         String mAction = intent.getAction();
         if ((mAction.equals(Intent.ACTION_MY_PACKAGE_REPLACED)) || (mAction.equals(Intent.ACTION_BOOT_COMPLETED))) {
             SharedPreferences settings = context.getSharedPreferences(PREFS_NAME, 0);
-            if(mAction.equals(Intent.ACTION_MY_PACKAGE_REPLACED)){
+            if (mAction.equals(Intent.ACTION_MY_PACKAGE_REPLACED)) {
                 SharedPreferences.Editor editor = settings.edit();
-                editor.putBoolean("changelog",true);
+                editor.putBoolean("changelog", true);
                 editor.apply();
             }
             String message = settings.getString("message", "");
@@ -35,8 +35,8 @@ public class RestartReceiver extends BroadcastReceiver {
                 Intent Service = new Intent(context, MessageService.class);
                 context.startService(Service);
             }
-            String scheduledText = settings.getString("scheduled_text","");
-            if(!scheduledText.isEmpty()){
+            String scheduledText = settings.getString("scheduled_text", "");
+            if (!scheduledText.isEmpty()) {
                 Intent i = new Intent(context, ScheduledMessageRunner.class);
                 Bundle b = new Bundle();
                 b.putString("Full_Message", scheduledText);
@@ -44,11 +44,11 @@ public class RestartReceiver extends BroadcastReceiver {
                 PendingIntent final_intent = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_CANCEL_CURRENT);
                 AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
                 Calendar validDate = Calendar.getInstance();
-                String full = settings.getString("scheduled_time","");
+                String full = settings.getString("scheduled_time", "");
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm", Locale.US);
-                try{
+                try {
                     validDate.setTime(dateFormat.parse(full));
-                }catch (ParseException e){
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 am.set(AlarmManager.RTC, validDate.getTimeInMillis(), final_intent);

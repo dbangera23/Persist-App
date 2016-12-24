@@ -76,8 +76,8 @@ public class MessageService extends Service {
             messageHead.setRotation(rotation);
             int size = settings.getInt("SizeSeek", 10);
             messageHead.setTextSize(size);
-            String bkd_Color = settings.getString("bkd_Color", "Transparent");
-            if (bkd_Color.equals("Transparent")) {
+            String bkd_Color = settings.getString("bkd_Color", getString(R.string.transparent));
+            if (bkd_Color.equals(getString(R.string.transparent))) {
                 messageHead.setBackgroundColor(Color.TRANSPARENT);
             } else {
                 Spannable spanText = Spannable.Factory.getInstance().newSpannable(text);

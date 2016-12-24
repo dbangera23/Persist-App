@@ -37,6 +37,29 @@ public class LocationActivity extends Activity {
         setContentView(R.layout.location);
         Toast toast = Toast.makeText(getApplicationContext(), R.string.LocationMess, Toast.LENGTH_SHORT);
         toast.show();
+        final SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+
+        textview = new TextView(getApplicationContext());
+        String message = settings.getString("message", "");
+        if (message.isEmpty()) {
+            message = "Text";
+        } else {
+            intentStart = true;
+        }
+        textview.setText(message);
+        textview.setTextColor(Color.parseColor(settings.getString("Color", "Black")));
+        String bkd_Color = settings.getString("bkd_Color", "Transparent");
+        if (bkd_Color.equals("Transparent")) {
+            textview.setBackgroundColor(Color.TRANSPARENT);
+        } else {
+            textview.setBackgroundColor(Color.parseColor(bkd_Color));
+        }
+        textview.setTextSize(settings.getInt("SizeSeek", 10));
+        TSize = (int) textview.getTextSize();
+        textview.setRotation(settings.getInt("RotSeek",0));
+        Point size = new Point();
+        getWindowManager().getDefaultDisplay().getSize(size);
+        yDisplace = size.y / 18;
 
         final FrameLayout Frame_layout = (FrameLayout) findViewById(R.id.locationParent);
         if (Frame_layout != null) {
@@ -44,28 +67,6 @@ public class LocationActivity extends Activity {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-                        textview = new TextView(getApplicationContext());
-                        String message = settings.getString("message", "");
-                        if (message.isEmpty()) {
-                            message = "Text";
-                        } else {
-                            intentStart = true;
-                        }
-                        textview.setText(message);
-                        textview.setTextColor(Color.parseColor(settings.getString("Color", "Black")));
-                        String bkd_Color = settings.getString("bkd_Color", "Transparent");
-                        if (bkd_Color.equals("Transparent")) {
-                            textview.setBackgroundColor(Color.TRANSPARENT);
-                        } else {
-                            textview.setBackgroundColor(Color.parseColor(bkd_Color));
-                        }
-                        textview.setTextSize(settings.getInt("SizeSeek", 10));
-                        TSize = (int) textview.getTextSize();
-                        textview.setRotation(settings.getInt("RotSeek",0));
-                        Point size = new Point();
-                        getWindowManager().getDefaultDisplay().getSize(size);
-                        yDisplace = size.y / 18;
                         int x = (int) event.getX() - TSize;
                         int y = (int) event.getY() - TSize - (yDisplace);
                         if (x < 0)

@@ -13,7 +13,7 @@ import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Created by deanb on 5/28/2016.
+ * Created by Dean Bangera on 5/28/2016.
  * Handle the showing of Date Picker
  */
 public class DatePickerFragment extends DialogFragment
@@ -36,12 +36,12 @@ public class DatePickerFragment extends DialogFragment
         Calendar currentDate = Calendar.getInstance();
         Calendar validDate = Calendar.getInstance();
         validDate.set(year, month, day);
-        if(currentDate.after(validDate)){
+        if (currentDate.after(validDate)) {
             Toast toast = Toast.makeText(view.getContext(), R.string.previous_date, Toast.LENGTH_LONG);
             toast.show();
-        }else{
+        } else {
             RelativeLayout relativeLayout = (RelativeLayout) getActivity().findViewById(R.id.relativeLayout);
-            ((TextView)relativeLayout.findViewById(R.id.scheduled_date)).setText(String.format(Locale.US,"%tm-%td-%tY",validDate,validDate,validDate));
+            ((TextView) relativeLayout.findViewById(R.id.scheduled_date)).setText(String.format(Locale.US, "%tm-%td-%tY", validDate, validDate, validDate));
         }
     }
 }

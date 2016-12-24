@@ -13,16 +13,15 @@ import android.widget.TextView;
 
 /**
  * Created by Dean Bangera on 5/9/2016.
- * Handles restarting the service due to reboot or update
+ * The activity to show the about page and anything related
  */
 public class AboutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        String version = BuildConfig.VERSION_NAME;
         TextView verView = (TextView) findViewById(R.id.VersionName);
         if (verView != null)
-            verView.setText(version);
+            verView.setText(BuildConfig.VERSION_NAME);
         Button aboutDemo = (Button) findViewById(R.id.about_Demo);
         if (aboutDemo != null) {
             SpannableString content = new SpannableString(getString(R.string.about_demo));

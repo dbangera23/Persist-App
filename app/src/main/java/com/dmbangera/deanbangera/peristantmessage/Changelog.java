@@ -6,7 +6,7 @@ import android.app.DialogFragment;
 import android.os.Bundle;
 
 /**
- * Created by deanb on 5/25/2016.
+ * Created by Dean Bangera on 5/25/2016.
  * Changelog view
  */
 public class Changelog extends DialogFragment {

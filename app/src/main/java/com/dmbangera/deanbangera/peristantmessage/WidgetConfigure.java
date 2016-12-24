@@ -19,7 +19,7 @@ import android.widget.TextView;
 import java.util.Locale;
 
 /**
- * Created by deanb on 6/11/2016.
+ * Created by Dean Bangera on 6/11/2016.
  * Widget configuration
  */
 public class WidgetConfigure extends Activity implements AdapterView.OnItemSelectedListener {

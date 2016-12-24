@@ -25,10 +25,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.text.ParseException;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-
 import java.util.Locale;
 
 /**
@@ -117,10 +115,10 @@ public class scheduleFragment extends Fragment {
                 String date = dateText.getText().toString();
                 String time = HourView.getText().toString();
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MM-dd-yyyy:hh:mm", Locale.US);
-                try{
+                try {
                     String full = date + ":" + time;
                     validDate.setTime(dateFormat.parse(full));
-                }catch (ParseException e){
+                } catch (ParseException e) {
                     e.printStackTrace();
                 }
                 if (currentDate.get(Calendar.DATE) == validDate.get(Calendar.DATE)) {
