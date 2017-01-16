@@ -7,7 +7,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="155763330d39498763661c70497161d69b30d19d">
+        sha1="b5e9ee561449ee225705c914c397efb13768e7eb">
         <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_bb8e8d64154e77aef8b859ddeae94d20fbfde941\classes.dex" />
     </item>
     <item
@@ -48,21 +48,21 @@
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.github.ceryle\RadioRealButton\v1.4.5\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="3c9569942424e56ed068c9eedc7050894ad0f178">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.ceryle-RadioRealButton-v1.4.5_2cf1f17586e1c23f89c5b4c184ba01e01cab08e2\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.pavelsikun\vintage-chroma\1.5\jars\classes.jar"
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
         sha1="7bed2101cde7b777328434fec1f25fc062f0cf74">
         <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.pavelsikun-vintage-chroma-1.5_c83ef7be8dd3a80d8371d56a8fd340fa9449ab2d\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.1.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="7f2420506110902f033406b25697cf97ee8c38b2">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-25.1.0_1ef51cf447c001944b449a09a167adc7bd935a59\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -81,6 +81,15 @@
         revision="24.0.0"
         sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
         <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.0_42841951fb08995bc984a029d401f9b83faa24ec\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.github.jrvansuita\PickImage\v2.0.0\jars\classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="24.0.0"
+        sha1="8bcebafd35f4c90db4096b9ef05399818720cda1">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.jrvansuita-PickImage-v2.0.0_141c54df639d40632c464551cd6fd832b11ed01c\classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -142,7 +151,7 @@
         jumboMode="true"
         optimize="true"
         revision="24.0.0"
-        sha1="726cb3f653eadfe6d1ec0265d1205f1509bc929f">
+        sha1="85d447c9e0b1bbe737fe375d5ee4f609765c52fb">
         <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6d9e25c14f399a42a88490b550941e1ae1946f30\classes.dex" />
     </item>
     <item

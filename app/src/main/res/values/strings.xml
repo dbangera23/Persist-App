@@ -43,6 +43,10 @@
     <string name="a_0">Set A to 0 for Transparent</string>
     <string name="image_to_be_set">Image to be set</string>
     <string name="transparency">Transparency</string>
+    <string name="other">Other</string>
+    <string name="image_to_be_scheduled">Image to be scheduled</string>
+    <string name="default_date">00/00/0000</string>
+    <string name="default_time">00:00</string>
     <string-array name="rainbow">
         <item>Aqua</item>
         <item>Black</item>

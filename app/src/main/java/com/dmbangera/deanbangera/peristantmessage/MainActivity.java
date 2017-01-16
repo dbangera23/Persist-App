@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
                 break;
             case R.id.nav_schedule:
-                fragmentTransaction.replace(R.id.containerView, new scheduleFragment()).commit();
+                fragmentTransaction.replace(R.id.containerView, new ScheduleFragment_new()).commit();
                 break;
             default:
                 break;

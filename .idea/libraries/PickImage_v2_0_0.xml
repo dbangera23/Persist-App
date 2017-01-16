@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="PickImage-v2.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.jrvansuita/PickImage/v2.0.0/jars/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.github.jrvansuita/PickImage/v2.0.0/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.jrvansuita/PickImage/v2.0.0/9de6963b9fe04d4fe80570245ac26d9e29c4c580/PickImage-v2.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -123,6 +123,7 @@
         android:layout_centerHorizontal="true"
         android:text="@string/transparency" />
     <FrameLayout
+        android:id="@+id/image_listener"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/trans_prompt"
