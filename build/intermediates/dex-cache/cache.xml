@@ -2,175 +2,193 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\org\jetbrains\kotlin\kotlin-runtime\1.0.0\kotlin-runtime-1.0.0.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="b5e9ee561449ee225705c914c397efb13768e7eb">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run_bb8e8d64154e77aef8b859ddeae94d20fbfde941\classes.dex" />
+        revision="26.0.1"
+        sha1="8739b3cd3bf98584cf2d1cabf59b55dbd5f7349d">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\kotlin-runtime-1.0.0_c2ae2c59f564626749f914b2a8a2e39b275f8954.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-core-ui\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\536297892eef38f1efc8717804e83620f6732492\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="aee64634871d88a419d59eb743c1258a60f19700">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-ui-25.1.0_a27e3a9718816ac6a354c53d0506252930eebcb7\classes.dex" />
+        revision="26.0.1"
+        sha1="e7424f816f538c2acfba6169b25e297ea22afbd8">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_8ca68d0aaf89502e14a73f9e578f8a2f1dd24e5d.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-v4\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\f733c81021458f0e95262f1d23735cbcc8dc1546\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-v4-25.1.0_d268b4271caed84017c40b3eb89949b570b521f4\classes.dex" />
+        revision="26.0.1"
+        sha1="a4590fa7eadce322ca893129fdc999074e1aa5bf">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_a606b7912d54ad92c34d1d8a4acdd463f1d63006.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-media-compat\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\86b06a11514763764160a1636631ab9b15074b97\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="f02263e35e52668dd17b73bf961437e3d562b35f">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-media-compat-25.1.0_3cfa1eb448c22c79cfa6cf93d6347da27065a14a\classes.dex" />
+        revision="26.0.1"
+        sha1="10c32fcf3d0acc4b208fc39f8d2e16b69ef8bd3b">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_b505e8a5f6f1dfe0f42147c940cdeec5607a9dea.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\animated-vector-drawable\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\f287eb825fd76778ece14931335a8457ff6d0fd2\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="6fb6ac3e8d3b9013819920d9ea11f3803c4c0033">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-animated-vector-drawable-25.1.0_c8f7e5bced991ee3308c023332982754e1012f94\classes.dex" />
+        revision="26.0.1"
+        sha1="083e7bc5a9d9404b49b8f34e5091532361fa28e6">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_c0b83d2f34b2230b010282630f23ebc9d45bf386.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.pavelsikun\vintage-chroma\1.5\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\7530c2551f0ef0839121cd4722643cec6cca1c0f\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="7bed2101cde7b777328434fec1f25fc062f0cf74">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.pavelsikun-vintage-chroma-1.5_c83ef7be8dd3a80d8371d56a8fd340fa9449ab2d\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="7f2420506110902f033406b25697cf97ee8c38b2">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-cardview-v7-25.1.0_1ef51cf447c001944b449a09a167adc7bd935a59\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\preference-v7\23.4.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="b954d8588de65c67c1ec482678620845bbb5f737">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-preference-v7-23.4.0_fee2db7e6fde30bbb07859af0ae1c7a2389a0baa\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-fragment\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="2a53c4f3518116b8c6aee0e477233f0f7da8616f">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-fragment-25.1.0_42841951fb08995bc984a029d401f9b83faa24ec\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.github.jrvansuita\PickImage\v2.0.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
+        revision="26.0.1"
         sha1="8bcebafd35f4c90db4096b9ef05399818720cda1">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.github.jrvansuita-PickImage-v2.0.0_141c54df639d40632c464551cd6fd832b11ed01c\classes.dex" />
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_303ef573178927199112b646b5cf9fa1feab0de9.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\transition\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\434bde5b00aef3050555603350ca9434f8c28179\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="d38084015027549951cbaea5d5f6fb795cc81151">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-transition-25.1.0_5596733bf966880304cf6fe3b9b86a5594adbbb1\classes.dex" />
+        revision="26.0.1"
+        sha1="d095503f29a8dedc55b9326ed97a5902a1527ab9">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_41881f6cc1fc33a1f65becd91687c0449807efad.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\AppData\Local\Android\sdk\extras\android\m2repository\com\android\support\support-annotations\25.1.0\support-annotations-25.1.0.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\d25d17176761d72a67d2e5bba373314f7b24e9a7\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="64cb6b229a8bdfd907bc8dd46839a0053e4c018d">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\support-annotations-25.1.0_10bdd1f140f2f1a7b71a8501cabda0eb2b2c0c35\classes.dex" />
+        revision="26.0.1"
+        sha1="56e96fa067ba358a6c60184e40947810dcd78f30">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_a171897d1816256a76a76d06b53071e925a5b2f2.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\design\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\218cc0617b3750419d38068b4e6bc01f6516145a\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="30103d98fa5ed824b54af839c85e2111f9bde8ec">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-design-25.1.0_1ce69f50ccd4d1230fd61a0f6247553394e0a649\classes.dex" />
+        revision="26.0.1"
+        sha1="71af915b7f4f7ec0b5f768b365145bb6a5cb9a66">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_80b79cd2ac01e17fdee8a3776854c95d314157e2.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-core-utils\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\566a7b99cc2d48669d7d205bda7dc73f05083ebe\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="0a0ef86b7fa568a52bf6214a0326ca1f1d618da7">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-core-utils-25.1.0_c3e639578f15646621bc9da9594fbb119177421b\classes.dex" />
+        revision="26.0.1"
+        sha1="5b65ec1ebc84af3baecfd28954c9e7ff01b937a8">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_212498dd00dc6bb18fa1f8cd7e00b4af2a41c219.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-compat\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.8.0\c4ba5371a29ac9b2ad6129b1d39ea38750043eff\gson-2.8.0.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="ca3c7aa31e2726a400a6e552b93cb9f63c9a1e6d">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-compat-25.1.0_4faacad0a665f961dc2e126f5f5d47ee14717c62\classes.dex" />
+        revision="26.0.1"
+        sha1="c4ba5371a29ac9b2ad6129b1d39ea38750043eff">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\gson-2.8.0_98c1e128f8aa98d232331fa2519095f8232d8866.jar" />
     </item>
     <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\25.1.0\jars\classes.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\9ea4c75dd25916fc3827177951c66f99e55b2e4a\output\jars\classes.jar"
+        jumboMode="false"
         optimize="true"
-        revision="24.0.0"
-        sha1="b266c8faa5af72e579b9da36ef35053ffed6ac64">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-recyclerview-v7-25.1.0_f0a780d2c7730b720aadfb945f685a1bbbe08398\classes.dex" />
+        revision="26.0.1"
+        sha1="22c673e65215e0764add61e3102946de895439e4">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_903515914df3b90c8bea5a69d3f954bf162df435.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\780ad7e0116a83ee9b1398c296b65c852971b413\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="c390af22079a61fdc42712c19f15a700f1fc2cbf">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_8f3f8f86651ec7dfe5094e07256fdd9f4df0be6b.jar" />
     </item>
     <item
         is-multidex="true"
         jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
-        revision="24.0.0"
-        sha1="85d447c9e0b1bbe737fe375d5ee4f609765c52fb">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\instant-run-bootstrap_6d9e25c14f399a42a88490b550941e1ae1946f30\classes.dex" />
+        revision="26.0.1"
+        sha1="fc8584525dbe257374d527395dcad97ebab38280">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_6d9e25c14f399a42a88490b550941e1ae1946f30\classes.dex" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\063fb65668ce8e657a48a7eb0fc7160e401ac181\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_b9a466e3059b2cadaf24542bc9d30836b5892478.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\d14de89d91d6005255302349cd9db37e79ae342b\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="76043dab5454efc14b69cbd3de807dbdc4d62a7f">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_df5fed794157cfcf235fa50c8d62415798cd5ca3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\4ef9a4cdb98752c7f548881fa7b60eaa23bafe84\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="681eeeaec5300e5257ad9bf889c3859ba3833d5a">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_78eb6f4bd34362a633fa88d5c5bd63fe5de2aada.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Program Files\Android\Android Studio\gradle\m2repository\org\jetbrains\kotlin\kotlin-stdlib\1.0.0\kotlin-stdlib-1.0.0.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="2db5ac6eb2746708e77e4c439625f9331c25e766">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\kotlin-stdlib-1.0.0_e20a9293b44aea8b910ff27fa578b1834e958c02.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.gradle\caches\modules-2\files-2.1\com.android.support\support-annotations\26.0.1\e1bb32b12b25e2f78e6786059ca7ea878f8345e0\support-annotations-26.0.1.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="e1bb32b12b25e2f78e6786059ca7ea878f8345e0">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\support-annotations-26.0.1_cf4d937af59dc3406b7d26329aaa4640f92e352e.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="C:\Users\deanb\.android\build-cache\de05bd39c0df76dee98dd6cda24b965ad61bb05c\output\jars\classes.jar"
+        jumboMode="false"
+        optimize="true"
+        revision="26.0.1"
+        sha1="dff4d8f88fe2c0e57306e6981fd9b90caeead7e3">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\pre-dexed\debug\classes_01948ff8924acc1916b399b34fc4dd2229796e2e.jar" />
     </item>
     <item
         is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\support-vector-drawable\25.1.0\jars\classes.jar"
+        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
         jumboMode="true"
         optimize="true"
-        revision="24.0.0"
-        sha1="e79aa3d9a16f8c9f16377c0608de70a8f31e5d80">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-support-vector-drawable-25.1.0_bef0f1d053b2127b8ca57853c5ab8fc93ec1e40e\classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\25.1.0\jars\classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="24.0.0"
-        sha1="1630658fbc2d222b988603c27b4a4249586fbfe7">
-        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10\com.android.support-appcompat-v7-25.1.0_81a820c0b3bd5f8fec2f57f60a185998c80efd2c\classes.dex" />
+        revision="26.0.1"
+        sha1="3be78ebc2706b2e1fe2f12d5726887a92d6c183b">
+        <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_bb8e8d64154e77aef8b859ddeae94d20fbfde941\classes.dex" />
     </item>
 
 </items>

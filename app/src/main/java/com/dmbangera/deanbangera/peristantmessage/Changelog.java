@@ -15,14 +15,10 @@ public class Changelog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Changelog");
         builder.setMessage(
-                "2.5\n" +
-                        "Fixed rotation clipping bug\n" +
-                        "Added in android N support\n" +
-                        "2.4\n" +
-                        "Added widget\n" +
-                        "2.3\n" +
-                        "Added rotation to text\n" +
-                        "Added changelog to be shown\n");
+                "3.0\n" +
+                        "Added Image Support\n" +
+                        "Added Support for full color ranges\n" +
+                        "Removed Scheduling feature due to stability issues");
         return builder.create();
     }
 }

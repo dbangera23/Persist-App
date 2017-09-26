@@ -18,4 +18,8 @@
         android:id="@+id/FeedbackID"
         android:title="@string/feedback"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/settings"
+        android:title="@string/settings"
+        app:showAsAction="never"/>
 </menu>

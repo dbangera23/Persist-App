@@ -29,14 +29,14 @@ public class WidgetConfigure extends Activity implements AdapterView.OnItemSelec
         super.onCreate(savedInstanceState);
         setContentView(R.layout.widget_config);
         setResult(RESULT_CANCELED);
-        Button WidgetSet = (Button) findViewById(R.id.WidgetSet);
-        final Spinner Color_spinner = (Spinner) findViewById(R.id.Widget_Txt_Color);
-        final Spinner bkd_color_spinner = (Spinner) findViewById(R.id.Widget_bkd_Color);
-        final SeekBar size_seeker = (SeekBar) findViewById(R.id.Widget_size_seeker);
+        Button WidgetSet = findViewById(R.id.WidgetSet);
+        final Spinner Color_spinner = findViewById(R.id.Widget_Txt_Color);
+        final Spinner bkd_color_spinner = findViewById(R.id.Widget_bkd_Color);
+        final SeekBar size_seeker = findViewById(R.id.Widget_size_seeker);
         WidgetSet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText input = (EditText) findViewById(R.id.Widget_input);
+                EditText input = findViewById(R.id.Widget_input);
                 String message = input.getText().toString();
                 if (message.isEmpty()) {
                     Snackbar snackbar = Snackbar.make(v, R.string.EmptyMess, Snackbar.LENGTH_SHORT);
@@ -80,8 +80,8 @@ public class WidgetConfigure extends Activity implements AdapterView.OnItemSelec
         }
 
         if (size_seeker != null) {
-            final TextView sizeText = (TextView) findViewById(R.id.Widget_size);
-            final EditText inputText = (EditText) findViewById(R.id.Widget_input);
+            final TextView sizeText = findViewById(R.id.Widget_size);
+            final EditText inputText = findViewById(R.id.Widget_input);
             sizeText.setText(String.format(Locale.getDefault(), "%d", 10));
             inputText.setTextSize(10);
             size_seeker.setMax(90);
@@ -109,7 +109,7 @@ public class WidgetConfigure extends Activity implements AdapterView.OnItemSelec
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         String item = parent.getItemAtPosition(position).toString();
         if (view != null) {
-            EditText ETextView = (EditText) findViewById(R.id.Widget_input);
+            EditText ETextView = findViewById(R.id.Widget_input);
             if (parent.getId() == R.id.Widget_bkd_Color) {
                 if (item.equals("Transparent")) {
                     ETextView.setBackgroundColor(Color.TRANSPARENT);

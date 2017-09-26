@@ -5,18 +5,4 @@
         android:key="burn_in_key"
         android:summary="Moves text hourly for burn in protection"
         android:title="Burn in protection" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:key="notification_bool"
-        android:title="Notifications" />
-    <RingtonePreference
-        android:defaultValue="false"
-        android:dependency="notification_bool"
-        android:key="notification_sound"
-        android:title="Notification Sound" />
-    <CheckBoxPreference
-        android:defaultValue="false"
-        android:dependency="notification_bool"
-        android:key="notification_vibrate"
-        android:title="Vibrate" />
 </PreferenceScreen>

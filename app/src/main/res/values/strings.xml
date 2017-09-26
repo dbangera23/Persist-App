@@ -1,15 +1,18 @@
 <resources>
     <string name="app_name">Persist</string>
     <string name="size">Size:</string>
-    <string name="Text">Text</string>
     <string name="Text_color">Text Color</string>
     <string name="bkd_Color">Background Color</string>
     <string name="set">Set</string>
+    <string name="undo">Undo</string>
     <string name="location">Location</string>
     <string name="delete">Delete</string>
     <string name="DeleteMess">Message deleted</string>
     <string name="EmptyMess">Message Empty</string>
-    <string name="PermissionMess">Allow Overlay Permission</string>
+    <string name="EmptyImage">No Image Found</string>
+    <string name="DeleteImage">Image Deleted</string>
+    <string name="SetImage">Image Set</string>
+    <string name="PermissionMess">Please Allow Overlay Permission</string>
     <string name="LocationMess">Touch to set location</string>
     <string name="feedback">Feedback</string>
     <string name="about">About</string>
@@ -18,35 +21,23 @@
     <string name="Share">Share</string>
     <string name="about_demo"><u>Demo</u></string>
     <string name="changelog">Changelog</string>
-    <string name="schedule">Scheduling</string>
-    <string name="un_schedule">Un-schedule</string>
-    <string name="set_date">Set Date</string>
-    <string name="set_time">Set Time</string>
-    <string name="previous_datetime">Cannot select previous date/time</string>
-    <string name="no_date">No date selected</string>
-    <string name="no_time">No time selected</string>
-    <string name="previous_date">Cannot select previous date</string>
     <string name="checkout_app">Check out this app called Persist!\n</string>
     <string name="share_prompt">Share via</string>
     <string name="Message_set">Message Set</string>
-    <string name="message_scheduled">Message scheduled</string>
-    <string name="schedule_m_set">Scheduled Message Set</string>
-    <string name="cancelled_message">Cancelled scheduled message</string>
-    <string name="none_scheduled">No scheduled message</string>
-    <string name="schBoolON">Scheduled Text: ON</string>
-    <string name="schBoolOFF">Scheduled Text: OFF</string>
-    <string name="none">None</string>
     <string name="settings">Settings</string>
     <string name="rotation">Rotation:</string>
     <string name="image">Image</string>
     <string name="transparent">Transparent</string>
     <string name="a_0">Set A to 0 for Transparent</string>
     <string name="image_to_be_set">Image to be set</string>
-    <string name="transparency">Transparency</string>
+    <string name="opacity">Opacity</string>
+    <string name="Text">Text</string>
+    <string name="black">Black</string>
     <string name="other">Other</string>
-    <string name="image_to_be_scheduled">Image to be scheduled</string>
-    <string name="default_date">00/00/0000</string>
-    <string name="default_time">00:00</string>
+    <string name="ask_permission">Ask Permissions</string>
+    <string name="ask_permission_dialog">This app requires permission to set texts/images to the screen. Please click OK and allow the app to display over other apps</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
     <string-array name="rainbow">
         <item>Aqua</item>
         <item>Black</item>
@@ -63,6 +54,7 @@
         <item>Teal</item>
         <item>White</item>
         <item>Yellow</item>
+        <item>Other</item>
     </string-array>
     <string-array name="rainbowBKD">
         <item>Transparent</item>
@@ -81,5 +73,6 @@
         <item>Teal</item>
         <item>White</item>
         <item>Yellow</item>
+        <item>Other</item>
     </string-array>
 </resources>

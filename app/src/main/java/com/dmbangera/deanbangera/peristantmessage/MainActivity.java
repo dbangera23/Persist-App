@@ -1,56 +1,61 @@
 package com.dmbangera.deanbangera.peristantmessage;
 
 import android.app.FragmentManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
+import android.provider.Settings;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "MyPrefsFile";
-    private DrawerLayout mDrawerLayout;
-    private android.support.v4.app.FragmentManager mFragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        int screen_size = (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
+        if ((screen_size != Configuration.SCREENLAYOUT_SIZE_LARGE) && (screen_size !=- Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
         setContentView(R.layout.activity_main_);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView mNavigationView = (NavigationView) findViewById(R.id.nav_view);
-
-        mFragmentManager = getSupportFragmentManager();
+        android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
         FragmentTransaction mFragmentTransaction = mFragmentManager.beginTransaction();
         mFragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
-        mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                mDrawerLayout.closeDrawers();
-                int itemFound = item.getItemId();
-                if (itemFound == R.id.settings) {
-                    Intent i = new Intent(getApplicationContext(), SettingsFragment.class);
-                    startActivity(i);
-                } else {
-                    displayView(itemFound);
-                }
-                return false;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(this)) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.ask_permission)
+                        .setMessage(R.string.ask_permission_dialog)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                askPermission(getApplicationContext());
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        })
+                        .show();
             }
-        });
-
-        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
-        ActionBarDrawerToggle mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.app_name,
-                R.string.app_name);
-        mDrawerLayout.addDrawerListener(mDrawerToggle);
-        mDrawerToggle.syncState();
+        }
 
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getBoolean("changelog", false)) {
@@ -60,6 +65,21 @@ public class MainActivity extends AppCompatActivity {
             FragmentManager fm = getFragmentManager();
             Changelog dialogFragment = new Changelog();
             dialogFragment.show(fm, "");
+        }
+    }
+
+    static void askPermission(Context context) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!Settings.canDrawOverlays(context)) {
+                /* if not construct intent to request permission */
+                Toast toast = Toast.makeText(context.getApplicationContext(), R.string.PermissionMess, Toast.LENGTH_LONG);
+                toast.show();
+                Intent intentM = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                        Uri.parse("package:" + context.getPackageName()));
+                intentM.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                /* request permission via start activity for result */
+                context.startActivity(intentM);
+            }
         }
     }
 
@@ -91,22 +111,11 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(i);
                 }
                 return true;
+            case R.id.settings:
+                i = new Intent(this, SettingsFragment.class);
+                startActivity(i);
             default:
                 return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void displayView(int itemId) {
-        FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-        switch (itemId) {
-            case R.id.nav_message:
-                fragmentTransaction.replace(R.id.containerView, new TabFragment()).commit();
-                break;
-            case R.id.nav_schedule:
-                fragmentTransaction.replace(R.id.containerView, new ScheduleFragment_new()).commit();
-                break;
-            default:
-                break;
         }
     }
 

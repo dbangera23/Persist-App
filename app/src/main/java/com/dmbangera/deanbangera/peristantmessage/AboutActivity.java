@@ -19,10 +19,10 @@ public class AboutActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.about);
-        TextView verView = (TextView) findViewById(R.id.VersionName);
+        TextView verView = findViewById(R.id.VersionName);
         if (verView != null)
             verView.setText(BuildConfig.VERSION_NAME);
-        Button aboutDemo = (Button) findViewById(R.id.about_Demo);
+        Button aboutDemo =  findViewById(R.id.about_Demo);
         if (aboutDemo != null) {
             SpannableString content = new SpannableString(getString(R.string.about_demo));
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
@@ -33,7 +33,7 @@ public class AboutActivity extends Activity {
                 }
             });
         }
-        Button changelog = (Button) findViewById(R.id.about_changelog);
+        Button changelog = findViewById(R.id.about_changelog);
         if (changelog != null) {
             changelog.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {

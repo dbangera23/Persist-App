@@ -20,7 +20,7 @@ public class WidgetProvider extends AppWidgetProvider {
             // Create an Intent to launch ExampleActivity
             Intent intent = new Intent(context, WidgetConfigure.class);
             intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 4, intent, 0);
 
             // Get the layout for the App Widget and attach an on-click listener
             // to the button

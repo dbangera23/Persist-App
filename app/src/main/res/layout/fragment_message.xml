@@ -42,6 +42,7 @@
             android:layout_weight="1"
             android:text="@string/delete" />
     </TableRow>
+
     <TableRow
         android:id="@+id/Color_prompt_row"
         android:layout_width="match_parent"
@@ -50,6 +51,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
+        <Spinner
+            android:id="@+id/txt_spinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:entries="@array/rainbow" />
+
         <Button
             android:id="@+id/Txt_Color"
             style="?android:attr/buttonBarButtonStyle"
@@ -57,9 +64,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="#000000"
+            android:text="@string/black"
             android:textColor="#000000"
             tools:ignore="HardcodedText" />
+
+        <Spinner
+            android:id="@+id/bkd_spinner"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:entries="@array/rainbowBKD" />
+
 
         <Button
             android:id="@+id/bkd_Color"
@@ -68,8 +82,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:textColor="#000000"
-            android:text="@string/transparent" />
+            android:text="@string/transparent"
+            android:textColor="#000000" />
+
     </TableRow>
 
     <TableRow
@@ -159,8 +174,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/size_prompt"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <EditText
             android:id="@+id/input"

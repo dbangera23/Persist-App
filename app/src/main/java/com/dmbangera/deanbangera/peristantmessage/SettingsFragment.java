@@ -30,7 +30,6 @@ public class SettingsFragment extends PreferenceActivity {
         public void onCreate(final Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.preferences);
-
         }
 
         @Override
@@ -40,18 +39,8 @@ public class SettingsFragment extends PreferenceActivity {
                     Context context = getActivity().getApplicationContext();
                     SharedPreferences setting = context.getSharedPreferences(PREFS_NAME, 0);
                     if (!setting.getString("message", "").isEmpty()) {
-                        Intent i = new Intent(context, MessageService.class);
+                        Intent i = new Intent(context, setPersistService.class);
                         context.startService(i);
-                    }
-                }
-            }
-            if (key.equals("notification_vibrate")) {
-                if (sharedPreferences.getBoolean(key, false)) {
-                    if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
-                            Manifest.permission.VIBRATE) == PackageManager.PERMISSION_DENIED) {
-                        ActivityCompat.requestPermissions(getActivity(),
-                                new String[]{Manifest.permission.VIBRATE},
-                                0);
                     }
                 }
             }

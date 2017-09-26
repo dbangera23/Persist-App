@@ -10,18 +10,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pavelsikun.vintagechroma.ChromaDialog;
-import com.pavelsikun.vintagechroma.IndicatorMode;
-import com.pavelsikun.vintagechroma.OnColorSelectedListener;
-import com.pavelsikun.vintagechroma.colormode.ColorMode;
-
 import java.util.Locale;
+
+import me.priyesh.chroma.ChromaDialog;
+import me.priyesh.chroma.ColorMode;
+import me.priyesh.chroma.ColorSelectListener;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,33 +40,52 @@ public class MessageFragment extends Fragment {
         // Inflate the layout for this fragment
         final View view = inflater.inflate(R.layout.fragment_message, container, false);
         final SharedPreferences settings = this.getActivity().getSharedPreferences(PREFS_NAME, 0);
-        final EditText ETextView = (EditText) view.findViewById(R.id.input);
-        final Button Color_button = (Button) view.findViewById(R.id.Txt_Color);
-        final Button bkd_color_button = (Button) view.findViewById(R.id.bkd_Color);
+        final EditText ETextView = view.findViewById(R.id.input);
+        final Button Color_button = view.findViewById(R.id.Txt_Color);
+        final Button bkd_color_button = view.findViewById(R.id.bkd_Color);
         if (ETextView != null) {
             ETextView.setText(settings.getString("message", ""));
             if (Color_button != null) {
-                int c = Color.parseColor(settings.getString("Color", "Black"));
-                Color_button.setTextColor(c);
-                ETextView.setTextColor(c);
-                Color_button.setText(String.format("#%06X", (0xFFFFFF & c)));
+                String c = settings.getString("Color", "Black");
+                Color_button.setTextColor(Color.parseColor(c));
+                ETextView.setTextColor(Color.parseColor(c));
+                Color_button.setText(c);
                 Color_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View innerView) {
-                        new ChromaDialog.Builder()
-                                .initialColor(Color.parseColor(Color_button.getText().toString()))
-                                .colorMode(ColorMode.RGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
-                                .indicatorMode(IndicatorMode.HEX) //HEX or DECIMAL; Note that (HSV || HSL || CMYK) && IndicatorMode.HEX is a bad idea
-                                .onColorSelected(new OnColorSelectedListener() {
-                                    @Override
-                                    public void onColorSelected(@ColorInt int color) {
-                                        Color_button.setTextColor(color);
-                                        Color_button.setText(String.format("#%06X", (0xFFFFFF & color)));
-                                        ETextView.setTextColor(color);
-                                    }
-                                })
-                                .create()
-                                .show(getFragmentManager(), "ChromaDialog");
+                        final Spinner txt_spinner = view.findViewById(R.id.txt_spinner);
+                        txt_spinner.performClick();
+                        txt_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String spinnerColor = txt_spinner.getSelectedItem().toString();
+
+                                if (spinnerColor.equals(getString(R.string.other))) {
+                                    new ChromaDialog.Builder()
+                                            .initialColor(Color.parseColor(Color_button.getText().toString()))
+                                            .colorMode(ColorMode.RGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
+                                            .onColorSelected(new ColorSelectListener() {
+                                                @Override
+                                                public void onColorSelected(@ColorInt int color) {
+                                                    Color_button.setTextColor(color);
+                                                    Color_button.setText(String.format("#%06X", (0xFFFFFF & color)));
+                                                    //rainbowList.add(String.format("#%06X", (0xFFFFFF & color)));
+                                                    ETextView.setTextColor(color);
+                                                }
+                                            })
+                                            .create()
+                                            .show(getFragmentManager(), "ChromaDialog");
+                                } else {
+                                    Color_button.setTextColor(Color.parseColor(spinnerColor));
+                                    Color_button.setText(spinnerColor);
+                                    ETextView.setTextColor(Color.parseColor(spinnerColor));
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+                            }
+                        });
                     }
                 });
             }
@@ -78,49 +98,73 @@ public class MessageFragment extends Fragment {
                 } else {
                     int backColor = Color.parseColor(c);
                     bkd_color_button.setTextColor(backColor);
-                    bkd_color_button.setText(String.format("#%08X", backColor));
+                    bkd_color_button.setText(c);
                     ETextView.setBackgroundColor(backColor);
                 }
                 bkd_color_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View innerView) {
-                        String temp = bkd_color_button.getText().toString();
-                        if (bkd_color_button.getText().toString().equals(getString(R.string.transparent)))
-                            temp = "#00000000";
-                        new ChromaDialog.Builder()
-                                .initialColor(Color.parseColor(temp))
-                                .colorMode(ColorMode.ARGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
-                                .indicatorMode(IndicatorMode.HEX) //HEX or DECIMAL; Note that (HSV || HSL || CMYK) && IndicatorMode.HEX is a bad idea
-                                .onColorSelected(new OnColorSelectedListener() {
-                                    @Override
-                                    public void onColorSelected(@ColorInt int color) {
-                                        if (Color.alpha(color) == 0) {
-                                            bkd_color_button.setText(R.string.transparent);
-                                            bkd_color_button.setTextColor(Color.BLACK);
-                                        } else {
-                                            bkd_color_button.setText(String.format("#%08X", color));
-                                            bkd_color_button.setTextColor(color);
-                                        }
-                                        ETextView.setBackgroundColor(color);
+                        final Spinner bkd_spinner = view.findViewById(R.id.bkd_spinner);
+                        bkd_spinner.performClick();
+                        bkd_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                                String spinnerBkdColor = bkd_spinner.getSelectedItem().toString();
+                                if (spinnerBkdColor.equals(getString(R.string.other))) {
+                                    String colorInit = bkd_color_button.getText().toString();
+                                    if (colorInit.equals(getString(R.string.transparent)))
+                                        colorInit = "#00000000";
+                                    new ChromaDialog.Builder()
+                                            .initialColor(Color.parseColor(colorInit))
+                                            .colorMode(ColorMode.ARGB) // RGB, ARGB, HVS, CMYK, CMYK255, HSL
+                                            .onColorSelected(new ColorSelectListener() {
+                                                @Override
+                                                public void onColorSelected(@ColorInt int color) {
+                                                    if (Color.alpha(color) == 0) {
+                                                        bkd_color_button.setText(R.string.transparent);
+                                                        bkd_color_button.setTextColor(Color.BLACK);
+                                                    } else {
+                                                        bkd_color_button.setText(String.format("#%08X", color));
+                                                        bkd_color_button.setTextColor(color);
+                                                    }
+                                                    ETextView.setBackgroundColor(color);
+                                                }
+                                            })
+                                            .create()
+                                            .show(getFragmentManager(), "ChromaDialog");
+                                    Toast.makeText(getContext(), R.string.a_0, Toast.LENGTH_LONG).show();
+                                } else {
+                                    if (spinnerBkdColor.equals(getString(R.string.transparent))) {
+                                        bkd_color_button.setTextColor(Color.BLACK);
+                                        ETextView.setBackgroundColor(Color.TRANSPARENT);
+                                        bkd_color_button.setText(getString(R.string.transparent));
+                                    } else {
+                                        bkd_color_button.setTextColor(Color.parseColor(spinnerBkdColor));
+                                        bkd_color_button.setText(spinnerBkdColor);
+                                        ETextView.setBackgroundColor(Color.parseColor(spinnerBkdColor));
                                     }
-                                })
-                                .create()
-                                .show(getFragmentManager(), "ChromaDialog");
-                        Toast.makeText(getContext(), R.string.a_0, Toast.LENGTH_LONG).show();
+                                }
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> parent) {
+
+                            }
+                        });
                     }
                 });
             }
         }
         // Spinner elements
-        SeekBar size_seeker = (SeekBar) view.findViewById(R.id.size_seeker);
+        SeekBar size_seeker = view.findViewById(R.id.size_seeker);
         if (size_seeker != null) {
+            size_seeker.setMax(90);
             int saved_size = settings.getInt("SizeSeek", 10);
-            final TextView sizeText = (TextView) view.findViewById(R.id.size);
+            size_seeker.setProgress(saved_size - 10);
+            final TextView sizeText = view.findViewById(R.id.size);
             sizeText.setText(String.format(Locale.getDefault(), "%d", saved_size));
             if (ETextView != null) {
                 ETextView.setTextSize(saved_size);
-                size_seeker.setMax(90);
-                size_seeker.setProgress(saved_size - 10);
                 size_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -139,15 +183,15 @@ public class MessageFragment extends Fragment {
                 });
             }
         }
-        SeekBar rotation_seeker = (SeekBar) view.findViewById(R.id.rotation_seek);
+        SeekBar rotation_seeker = view.findViewById(R.id.rotation_seek);
         if (size_seeker != null) {
+            rotation_seeker.setMax(359);
             int saved_rot = settings.getInt("RotSeek", 0);
-            final TextView rotText = (TextView) view.findViewById(R.id.rotation);
+            rotation_seeker.setProgress(saved_rot);
+            final TextView rotText = view.findViewById(R.id.rotation);
             rotText.setText(String.format(Locale.getDefault(), "%d", saved_rot));
             if (ETextView != null) {
                 ETextView.setRotation(saved_rot);
-                rotation_seeker.setMax(359);
-                rotation_seeker.setProgress(saved_rot);
                 rotation_seeker.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
                     @Override
                     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -165,7 +209,7 @@ public class MessageFragment extends Fragment {
                 });
             }
         }
-        Button set_button = (Button) view.findViewById(R.id.message_set_button);
+        Button set_button = view.findViewById(R.id.message_set_button);
         if (set_button != null) {
             set_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -179,11 +223,11 @@ public class MessageFragment extends Fragment {
                     if (!message.isEmpty()) {
                         SharedPreferences.Editor editor = settings.edit();
                         editor.putString("message", message);
-                        SeekBar Size_seeker = (SeekBar) view.findViewById(R.id.size_seeker);
+                        SeekBar Size_seeker = view.findViewById(R.id.size_seeker);
                         if (Size_seeker != null) {
                             editor.putInt("SizeSeek", Size_seeker.getProgress() + 10);
                         }
-                        SeekBar rot_seeker = (SeekBar) view.findViewById(R.id.rotation_seek);
+                        SeekBar rot_seeker = view.findViewById(R.id.rotation_seek);
                         if (rot_seeker != null) {
                             editor.putInt("RotSeek", rot_seeker.getProgress());
                         }
@@ -194,15 +238,18 @@ public class MessageFragment extends Fragment {
                         if (bkd_color_button != null) {
                             editor.putString("bkd_Color", bkd_color_button.getText().toString());
                         }
+                        editor.putBoolean("textBased", true);
+
                         editor.apply();
-                        Intent i = new Intent(view.getContext(), MessageService.class);
+                        Intent i = new Intent(view.getContext(), setPersistService.class);
+                        getActivity().stopService(i);
                         getActivity().startService(i);
                         Snackbar snackbar = Snackbar
-                                .make(view, "Message Set", Snackbar.LENGTH_SHORT)
-                                .setAction("UNDO", new View.OnClickListener() {
+                                .make(view, getString(R.string.Message_set), Snackbar.LENGTH_SHORT)
+                                .setAction(getString(R.string.undo), new View.OnClickListener() {
                                     @Override
                                     public void onClick(View view) {
-                                        Intent intent = new Intent(view.getContext(), MessageService.class);
+                                        Intent intent = new Intent(view.getContext(), setPersistService.class);
                                         getActivity().stopService(intent);
                                         Snackbar snackbar = Snackbar.make(view, R.string.DeleteMess, Snackbar.LENGTH_SHORT);
                                         snackbar.show();
@@ -217,22 +264,25 @@ public class MessageFragment extends Fragment {
                 }
             });
         }
-        Button loc_button = (Button) view.findViewById(R.id.message_loc_button);
+        Button loc_button = view.findViewById(R.id.message_loc_button);
         if (loc_button != null) {
             loc_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View innerView) {
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("locTextBased", true);
+                    editor.apply();
                     Intent intent = new Intent(view.getContext(), LocationActivity.class);
                     startActivity(intent);
                 }
             });
         }
-        Button del_button = (Button) view.findViewById(R.id.message_del_button);
+        Button del_button = view.findViewById(R.id.message_del_button);
         if (del_button != null) {
             del_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View innerView) {
-                    Intent intent = new Intent(view.getContext(), MessageService.class);
+                    Intent intent = new Intent(view.getContext(), setPersistService.class);
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putString("message", "");
                     editor.apply();

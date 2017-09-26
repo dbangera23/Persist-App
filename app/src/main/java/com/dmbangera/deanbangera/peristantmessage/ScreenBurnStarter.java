@@ -29,7 +29,7 @@ public class ScreenBurnStarter extends BroadcastReceiver {
         }
         editor.putInt("X", x);
         editor.apply();
-        Intent i = new Intent(context, MessageService.class);
+        Intent i = new Intent(context, setPersistService.class);
         context.startService(i);
     }
 }

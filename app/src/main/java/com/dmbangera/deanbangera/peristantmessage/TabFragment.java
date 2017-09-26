@@ -23,19 +23,19 @@ public class TabFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /**
+        /*
          *Inflate tab_layout and setup Views.
          */
         View x = inflater.inflate(R.layout.tab_layout, container, false);
-        TabLayout tabLayout = (TabLayout) x.findViewById(R.id.tabs);
-        ViewPager viewPager = (ViewPager) x.findViewById(R.id.viewpager);
+        TabLayout tabLayout = x.findViewById(R.id.tabs);
+        ViewPager viewPager = x.findViewById(R.id.viewpager);
 
-        /**
+        /*
          *Set an Adapter for the View Pager
          */
         viewPager.setAdapter(new MyAdapter(getChildFragmentManager()));
 
-        /**
+        /*
          * Now , this is a workaround ,
          * The setupWithViewPager dose't works without the runnable .
          * Maybe a Support Library Bug .
@@ -46,7 +46,7 @@ public class TabFragment extends Fragment {
 
     }
 
-    class MyAdapter extends FragmentPagerAdapter {
+    private class MyAdapter extends FragmentPagerAdapter {
 
         MyAdapter(FragmentManager fm) {
             super(fm);

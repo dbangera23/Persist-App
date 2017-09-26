@@ -34,7 +34,6 @@
             </intent-filter>
         </activity>
 
-        <receiver android:name=".ScheduledMessageRunner" />
         <receiver android:name=".ScreenBurnStarter" />
         <receiver android:name=".RestartReceiver">
             <intent-filter>
@@ -50,9 +49,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info" />
         </receiver>
-
         <service
-            android:name=".MessageService"
+            android:name=".setPersistService"
             android:enabled="true" />
     </application>
 </manifest>
