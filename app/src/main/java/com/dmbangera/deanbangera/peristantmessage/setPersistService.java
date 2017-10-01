@@ -10,10 +10,10 @@ import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
 import java.util.Calendar;
 
 /**
@@ -34,11 +35,11 @@ import java.util.Calendar;
  * Handles setting of text in screen
  */
 public class setPersistService extends Service {
+    private static final String PREFS_NAME = "MyPrefsFile";
+    private static final int ONGOING_NOTIFICATION_ID = 1;
     private static WindowManager windowManager;
     private TextView messageHead;
     private ImageView imageHead;
-    private static final String PREFS_NAME = "MyPrefsFile";
-    private static final int ONGOING_NOTIFICATION_ID = 1;
     private AlarmManager am;
     private PendingIntent final_intent;
 
@@ -84,15 +85,19 @@ public class setPersistService extends Service {
                 imageHead = new ImageView(this);
                 imageHead.setImageURI(null);
                 //Setting the real returned image.
-                String uri = settings.getString("URI", "");
-                if (uri.isEmpty())
+                String mCurrentPhotoPath = settings.getString("photoPath", "");
+                File imgFile = new File(mCurrentPhotoPath);
+                if (imgFile.exists()) {
+                    Bitmap bitmap = ImageFragment.bitmapFromFilePath(mCurrentPhotoPath);
+                    imageHead.setImageBitmap(bitmap);
+                    if (imageHead.getDrawable() == null)
+                        stopSelf();
+                    float opacity = settings.getFloat("opacity", 0.0f);
+                    imageHead.setAlpha(opacity);
+                    imageHead.setRotation(rotation);
+                } else {
                     stopSelf();
-                imageHead.setImageURI(Uri.parse(uri));
-                if (imageHead.getDrawable() == null)
-                    stopSelf();
-                float opacity = settings.getFloat("opacity", 0.0f);
-                imageHead.setAlpha(opacity);
-                imageHead.setRotation(rotation);
+                }
             }
             WindowManager.LayoutParams params;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
@@ -121,10 +126,9 @@ public class setPersistService extends Service {
                 params.height = WindowManager.LayoutParams.WRAP_CONTENT;
                 windowManager.addView(messageHead, params);
             } else {
-                float scale = settings.getFloat("image_size", 1.0f);
-                imageHead.setAdjustViewBounds(true);
-                params.width = (int) (imageHead.getDrawable().getIntrinsicWidth() * scale);             //Adjust scale here since params was instantiated here
-                params.height = (int) (imageHead.getDrawable().getIntrinsicHeight() * scale);
+
+                params.width = (int) settings.getFloat("image_width", imageHead.getWidth());              //Adjust scale here since params was instantiated here
+                params.height = (int) settings.getFloat("image_height", imageHead.getWidth());
                 windowManager.addView(imageHead, params);
             }
 
@@ -151,13 +155,6 @@ public class setPersistService extends Service {
                 notificationManager.createNotificationChannel(channel);
                 channel.setImportance(NotificationManager.IMPORTANCE_MIN);
             }
-
-          /*  Intent deleteIntent = new Intent(getApplicationContext(), DeleteActivity.class);
-            PendingIntent deletePendingIntent = PendingIntent.getService(getApplicationContext(), 2, deleteIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            builder.addAction(R.drawable.ic_delete_black_24dp, getString(R.string.delete), deletePendingIntent);
-            Intent copyIntent = new Intent(getApplicationContext(), CopyActivity.class);
-            PendingIntent copyPendingIntent = PendingIntent.getService(getApplicationContext(), 1, copyIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            builder.addAction(R.drawable.ic_content_copy_black_24dp, getString(R.string.copy), copyPendingIntent);*/
 
             Notification notification = builder.build();
             startForeground(ONGOING_NOTIFICATION_ID, notification);

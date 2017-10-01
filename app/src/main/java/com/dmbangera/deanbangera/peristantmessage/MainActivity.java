@@ -26,8 +26,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int screen_size = (getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK);
-        if ((screen_size != Configuration.SCREENLAYOUT_SIZE_LARGE) && (screen_size !=- Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
-            setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        if ((screen_size != Configuration.SCREENLAYOUT_SIZE_LARGE) && (screen_size != -Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
         setContentView(R.layout.activity_main_);
         android.support.v4.app.FragmentManager mFragmentManager = getSupportFragmentManager();
@@ -124,4 +124,5 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
+
 }

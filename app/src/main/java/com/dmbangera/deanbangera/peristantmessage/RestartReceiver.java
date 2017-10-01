@@ -22,9 +22,10 @@ public class RestartReceiver extends BroadcastReceiver {
                 editor.putBoolean("changelog", true);
                 editor.apply();
             }
-            if (!(settings.getString("message", "") + settings.getString("URI", "")).isEmpty()) {
-                Intent Service = new Intent(context, setPersistService.class);
-                context.startService(Service);
+            if (!(settings.getString("message", "") + settings.getString("photoPath", "")).isEmpty()) {
+                Intent service = new Intent(context, setPersistService.class);
+                service.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startService(service);
             }
         }
     }

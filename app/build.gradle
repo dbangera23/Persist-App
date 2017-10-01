@@ -8,8 +8,8 @@ android {
         applicationId "com.dmbangera.deanbangera.peristantmessage"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 17
-        versionName "3.0"
+        versionCode 18
+        versionName "3.0.1"
     }
     buildTypes {
         release {
@@ -32,9 +32,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:26.0.1'
     compile 'com.android.support:design:26.0.1'
-    compile 'com.android.support:cardview-v7:26.0.1'
-    compile 'com.android.support:recyclerview-v7:26.0.1'
     compile 'me.priyesh:chroma:1.0.2'
-    compile 'com.github.jrvansuita:PickImage:v2.0.0'
-    compile 'com.google.code.gson:gson:2.8.0'
+
 }

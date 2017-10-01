@@ -3,9 +3,10 @@ package com.dmbangera.deanbangera.peristantmessage;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.Gravity;
@@ -17,6 +18,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 /**
  * Created by Dean Bangera on 5/6/2016.
@@ -47,7 +50,7 @@ public class LocationActivity extends Activity {
             String message = settings.getString("message", "");
             if (message.isEmpty()) {
                 message = "Text";
-            }else{
+            } else {
                 intentStart = true;
             }
             textView = new TextView(this);
@@ -64,16 +67,21 @@ public class LocationActivity extends Activity {
             textView.setRotation(settings.getInt("RotSeek", 0));
         } else {
             imageView = new ImageView(this);
-            String uri = settings.getString("URI", "");
-            if (uri.isEmpty()) {
+            String mCurrentPhotoPath = settings.getString("photoPath", "");
+            if (mCurrentPhotoPath.isEmpty()) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_insert_photo_black_24dp));
             } else {
-                imageView.setImageURI(Uri.parse(uri));
-                intentStart = true;
+                File imgFile = new File(mCurrentPhotoPath);
+                if (imgFile.exists()) {
+                    Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    imageView.setImageBitmap(bitmap);
+                    params.width = (int) (settings.getFloat("image_width", imageView.getWidth()));
+                    params.height = (int) (settings.getFloat("image_height", imageView.getHeight()));
+                    intentStart = true;
+                } else {
+                    imageView.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_insert_photo_black_24dp));
+                }
             }
-            float scale = settings.getFloat("image_size", 1.0f);
-            params.width = (int) (imageView.getDrawable().getIntrinsicWidth() * scale);
-            params.height = (int) (imageView.getDrawable().getIntrinsicHeight() * scale);
             float opacity = settings.getFloat("opacity", 0.0f);
             imageView.setAlpha(opacity);
             int rotation = settings.getInt("RotSeek", 0);
@@ -100,10 +108,10 @@ public class LocationActivity extends Activity {
 
                         params.leftMargin = x;
                         params.topMargin = y;
-                        if(locTextBased){
+                        if (locTextBased) {
                             textView.setLayoutParams(params);
                             ((FrameLayout) findViewById(R.id.locationParent)).addView(textView, params);
-                        }else{
+                        } else {
                             imageView.setLayoutParams(params);
                             ((FrameLayout) findViewById(R.id.locationParent)).addView(imageView, params);
                         }
@@ -117,9 +125,9 @@ public class LocationActivity extends Activity {
                                 y = 0;
                             params.leftMargin = x;
                             params.topMargin = y;
-                            if(locTextBased){
+                            if (locTextBased) {
                                 textView.setLayoutParams(params);
-                            }else{
+                            } else {
                                 imageView.setLayoutParams(params);
                             }
                         } else {

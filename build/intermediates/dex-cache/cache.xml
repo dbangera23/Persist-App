@@ -124,7 +124,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.1"
-        sha1="fc8584525dbe257374d527395dcad97ebab38280">
+        sha1="c1abb26ab1405502e416571ac03c3b578fff8c80">
         <dex dex="C:\Users\deanb\Code\Android\PeristantMessage\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_6d9e25c14f399a42a88490b550941e1ae1946f30\classes.dex" />
     </item>
     <item
