@@ -15,14 +15,10 @@ public class Changelog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Changelog");
         builder.setMessage(
-                "3.0.2\n" +
-                        "Bug fixes on image support & text view\n" +
-                "3.0.1\n" +
-                        "Added Image Support\n" +
-                        "Added Support for full color ranges\n" +
-                        "Removed Scheduling feature due to stability issues\n" +
-                        "Added Granularity to image support\n" +
-                        "Bug Fixes");
+                "3.0.3\n" +
+                        "Bug fixes on Image support. Google photos was throwing an error\n" +
+                        "3.0.2\n" +
+                        "Bug fixes on image support & text view\n");
         return builder.create();
     }
 }

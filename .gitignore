@@ -38,14 +38,13 @@ Thumbs.db
 *.log
 
 # Android Studio files
-.idea/
+.idea/*
 .idea/vcs.xml
+.idea/misc.xml
+.idea/modules.xml
 
 # Additionally ignore project files themselves so developers can choose their root directory name freely
-.idea/modules.xml
 *.iml
-.idea/misc.xml
-.idea/vcs.xml
 
 # Android Studio Navigation editor temp files
 .navigation/

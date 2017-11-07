@@ -8,8 +8,8 @@ android {
         applicationId "com.dmbangera.deanbangera.peristantmessage"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 18
-        versionName "3.0.1"
+        versionCode 19
+        versionName "3.0.2"
     }
     buildTypes {
         release {
