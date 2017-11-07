@@ -11,8 +11,8 @@ Finally, contains widget support for setting text onto the screen without going 
 
 **Text Setting**
 
-<img src="./Screenshots/Screenshot_1506461004.png" width="250"><img src="./Screenshots/Screenshot_1506461027.png" width="250">
+<img src="./Screenshots/Screenshot_1506461004.png" width="250"><img src="./Screenshots/Screenshot_20160509-170043.png" width="250">
 
 **Image Setting**
 
-<img src="./Screenshots/Screenshot_20160509-170043.png" width="250"><img src="./Screenshots/Screenshot_1506461080.png" width="250">
+<img src="./Screenshots/Screenshot_1506461027.png" width="250"><img src="./Screenshots/Screenshot_1506461080.png" width="250">
