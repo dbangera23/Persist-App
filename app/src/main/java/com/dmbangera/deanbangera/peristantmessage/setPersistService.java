@@ -89,6 +89,8 @@ public class setPersistService extends Service {
                 File imgFile = new File(mCurrentPhotoPath);
                 if (imgFile.exists()) {
                     Bitmap bitmap = ImageFragment.bitmapFromFilePath(mCurrentPhotoPath);
+                    if(bitmap==null)
+                        stopSelf();
                     imageHead.setImageBitmap(bitmap);
                     if (imageHead.getDrawable() == null)
                         stopSelf();

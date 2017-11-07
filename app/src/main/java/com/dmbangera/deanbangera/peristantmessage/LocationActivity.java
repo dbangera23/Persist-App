@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -73,7 +72,7 @@ public class LocationActivity extends Activity {
             } else {
                 File imgFile = new File(mCurrentPhotoPath);
                 if (imgFile.exists()) {
-                    Bitmap bitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                    Bitmap bitmap = ImageFragment.bitmapFromFilePath(imgFile.getAbsolutePath());
                     imageView.setImageBitmap(bitmap);
                     params.width = (int) (settings.getFloat("image_width", imageView.getWidth()));
                     params.height = (int) (settings.getFloat("image_height", imageView.getHeight()));

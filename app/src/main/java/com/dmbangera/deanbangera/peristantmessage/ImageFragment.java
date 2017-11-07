@@ -3,11 +3,9 @@ package com.dmbangera.deanbangera.peristantmessage;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
@@ -33,7 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -58,7 +59,7 @@ public class ImageFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(final LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_image, container, false);
         final ImageView EImage = view.findViewById(R.id.image);
@@ -67,7 +68,7 @@ public class ImageFragment extends Fragment {
         final SharedPreferences settings = getActivity().getSharedPreferences(PREFS_NAME, 0);
         FrameLayout imageListener = view.findViewById(R.id.image_listener);
         mCurrentPhotoPath = settings.getString("photoPath", "");
-        if(!checkPermissionForReadExtertalStorage()){
+        if (!checkPermissionForReadExtertalStorage()) {
             try {
                 requestPermissionForReadExternalStorage();
             } catch (Exception e) {
@@ -144,48 +145,49 @@ public class ImageFragment extends Fragment {
             imageListener.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(final View v) {
-                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
-                            .setTitle("Pick Source")
-                            .setPositiveButton("Camera", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                                    if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
-                                        File photoFile = null;
-                                        try {
-                                            photoFile = createImageFile();
-                                        } catch (IOException ex) {
-                                            Toast.makeText(getContext(), R.string.errorTakePic, Toast.LENGTH_SHORT).show();
-                                            Log.e(TAG, "onPictureClick: ", ex);
-                                        }
-                                        // Continue only if the File was successfully created
-                                        if (photoFile != null) {
-                                            Uri photoURI = FileProvider.getUriForFile(getContext(),
-                                                    "com.dmbangera.deanbangera.peristantmessage.fileprovider",
-                                                    photoFile);
-                                            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                                            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
-                                        }
-                                    }
+                    final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                    View camera_gallery_prompt = inflater.inflate(R.layout.image_or_message, container, false);
+                    builder.setView(camera_gallery_prompt);
+                    builder.setTitle(R.string.sourcePrompt);
+                    ImageView gallery = camera_gallery_prompt.findViewById(R.id.gallery);
+                    ImageView camera = camera_gallery_prompt.findViewById(R.id.camera);
+                    final AlertDialog alert = builder.create();
+                    gallery.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (checkPermissionForReadExtertalStorage()) {
+                                alert.cancel();
+                                Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                startActivityForResult(photoPickerIntent, REQUEST_IMAGE_GALLERY);
+                            } else {
+                                try {
+                                    requestPermissionForReadExternalStorage();
+                                } catch (Exception e) {
+                                    Toast.makeText(getContext(), R.string.retrieveError, Toast.LENGTH_SHORT).show();
                                 }
-                            })
-                            .setNegativeButton("Image", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    if(checkPermissionForReadExtertalStorage()){
-                                        Intent photoPickerIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                                        startActivityForResult(photoPickerIntent, REQUEST_IMAGE_GALLERY);
-                                    }else{
-                                        try {
-                                            requestPermissionForReadExternalStorage();
-                                            v.performClick();
-                                        } catch (Exception e) {
-                                            Toast.makeText(getContext(),  R.string.retrieveError, Toast.LENGTH_SHORT).show();
-                                        }
-                                    }
+                            }
+                        }
+                    });
+                    camera.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alert.cancel();
+                            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                            if (takePictureIntent.resolveActivity(getContext().getPackageManager()) != null) {
+                                File photoFile = createImageFile();
+                                // Continue only if the File was successfully created
+                                if (photoFile != null) {
+                                    mCurrentCameraPath = photoFile.getAbsolutePath();
+                                    Uri photoURI = FileProvider.getUriForFile(getContext(),
+                                            "com.dmbangera.deanbangera.peristantmessage.fileprovider",
+                                            photoFile);
+                                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
                                 }
-                            });
-                    builder.show();
+                            }
+                        }
+                    });
+                    alert.show();
                 }
             });
         }
@@ -291,9 +293,23 @@ public class ImageFragment extends Fragment {
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("photoPath", "");
                 editor.apply();
+                deleteExternalStoragePrivateFiles();
             }
         });
         return view;
+    }
+
+    private void deleteExternalStoragePrivateFiles() {
+        File fileDirectory = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        if (fileDirectory != null) {
+            Boolean allTrue = true;
+            for (File file : fileDirectory.listFiles()) {
+                if (file != null)
+                    allTrue = file.delete();
+            }
+            if (!allTrue)
+                Log.d(TAG, "deleteExternalStoragePrivateFiles: " + fileDirectory);
+        }
     }
 
     private void changeImageViewSize(ImageView EImage, float scale) {
@@ -309,21 +325,32 @@ public class ImageFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK) {
-            String tempPath = "";
+            Bitmap bitmap = null;
+            File imgFile = null;
+            Uri selectedImageUri = data.getData();
             if (requestCode == ImageFragment.REQUEST_IMAGE_CAPTURE) {
-                tempPath = mCurrentCameraPath;
-            }
-            if (requestCode == ImageFragment.REQUEST_IMAGE_GALLERY) {
-                tempPath = getFileUri(data.getData());
-                if (tempPath == null) {
-                    Toast.makeText(getContext(), R.string.retrieveError, Toast.LENGTH_SHORT).show();
-                    return;
+                imgFile = new File(mCurrentCameraPath);
+                if (imgFile.exists()) {
+                    bitmap = bitmapFromFilePath(mCurrentCameraPath);
+                    mCurrentPhotoPath = imgFile.getAbsolutePath();
+                }
+            } else {
+                if (requestCode == ImageFragment.REQUEST_IMAGE_GALLERY) {
+                    try {
+                        InputStream is = getActivity().getContentResolver().openInputStream(selectedImageUri);
+                        bitmap = BitmapFactory.decodeStream(is);
+                        imgFile = createImageFile();
+                        bitmapToFilePath(bitmap, imgFile);
+                        mCurrentPhotoPath = imgFile.getAbsolutePath();
+                    } catch (IOException e) {
+                        Toast.makeText(getContext(), R.string.retrieveError, Toast.LENGTH_SHORT).show();
+                        Log.d(TAG, "onActivityResult: file:\n" + selectedImageUri);
+                        return;
+                    }
                 }
             }
-            File imgFile = new File(tempPath);
-            if (imgFile.exists()) {
+            if (bitmap != null && imgFile.exists()) {
                 mCurrentPhotoPath = imgFile.getAbsolutePath();
-                Bitmap bitmap = bitmapFromFilePath(mCurrentPhotoPath);
                 Activity activity = getActivity();
                 ImageView mImageView = activity.findViewById(R.id.image);
                 mImageView.setImageResource(0);
@@ -335,8 +362,7 @@ public class ImageFragment extends Fragment {
                     size_seek.setProgress(99);
                 }
             } else {
-                Toast.makeText(getContext(),  R.string.retrieveError, Toast.LENGTH_SHORT).show();
-                Log.d(TAG, "onActivityResult: file:\n" + imgFile);
+                Toast.makeText(getContext(), R.string.retrieveError, Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -356,6 +382,24 @@ public class ImageFragment extends Fragment {
         return null;
     }
 
+    private static void bitmapToFilePath(Bitmap bitmap, File file) {
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(file.getAbsolutePath());
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+/*
     private String getFileUri(Uri uri) {
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = getActivity().getContentResolver().query(uri, filePathColumn, null, null, null);
@@ -368,23 +412,14 @@ public class ImageFragment extends Fragment {
         }
         return null;
     }
+*/
 
 
-    private File createImageFile() throws IOException {
+    private File createImageFile()  {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-
-        // Save a file: path for use with ACTION_VIEW intents
-
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-        mCurrentCameraPath = image.getAbsolutePath();
-        return image;
+        return new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), imageFileName + ".jpg");
     }
 
     private boolean checkPermissionForReadExtertalStorage() {

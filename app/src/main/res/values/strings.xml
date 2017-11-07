@@ -39,8 +39,10 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="retrieveError">Error retrieving picture</string>
-    <string name="errorTakePic">Error taking picture</string>
     <string name="permissionIssueDisclaimer">Reading pictures from gallery may cause issues.</string>
+    <string name="sourcePrompt">Pick Source</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
     <string-array name="rainbow">
         <item>Aqua</item>
         <item>Black</item>
